@@ -11,6 +11,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import br.com.rodrigo.api.controller.FilmeController;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ApiDeFilmesImdbApplicationTests {
 
@@ -27,7 +29,7 @@ class ApiDeFilmesImdbApplicationTests {
 	@Test
 	void deve_listar_250_filmes() {
 
-		ResponseEntity<String> response = this.restTemplate.getForEntity("http://localhost:" + port + "/top250", String.class);
+		ResponseEntity<FilmeController.ListaDeFilmes> response = this.restTemplate.getForEntity("http://localhost:" + port + "/top250", FilmeController.ListaDeFilmes.class);
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertNotNull(response.getBody());

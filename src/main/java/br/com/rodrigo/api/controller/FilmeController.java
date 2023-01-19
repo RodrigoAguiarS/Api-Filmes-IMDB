@@ -1,5 +1,7 @@
 package br.com.rodrigo.api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +21,14 @@ public class FilmeController {
 
 
     @GetMapping("/top250")
-    public String getTop250Filmes() {
+    public ListaDeFilmes getTop250Filmes() {
 
-        ResponseEntity<String> response =
-                this.restTemplate.getForEntity(appConfig.getBaseUrl(), String.class);
+        ResponseEntity<ListaDeFilmes> response =
+                this.restTemplate.getForEntity(appConfig.getBaseUrl(), ListaDeFilmes.class);
 
         return response.getBody();
     }
+
+    record Filme(String title, String image, String year, String imDbRating){}
+    public record ListaDeFilmes(List<Filme> items){}
 }
