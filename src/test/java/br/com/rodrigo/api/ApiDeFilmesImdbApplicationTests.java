@@ -2,6 +2,7 @@ package br.com.rodrigo.api;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,18 @@ class ApplicationTests {
 		assertNotNull(response.getBody());
 
 		assertEquals(250, response.getBody().items().size());
+	}
+
+	@Test
+	void shouldInsertToFavorites() {
+
+		String filmeId = "tt0068646";
+
+		ResponseEntity<String> response =
+				this.restTemplate.postForEntity("http://localhost:" + port + "/favorito/" + filmeId, null, String.class);
+
+		assertTrue(response.getStatusCode().is2xxSuccessful());
+		assertEquals(FilmeController.POST_SUCCESS, response.getBody());
+
 	}
 }
